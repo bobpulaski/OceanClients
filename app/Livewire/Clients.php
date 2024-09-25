@@ -5,13 +5,11 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Client;
 
-class ClientTable extends Component
+class Clients extends Component
 {
     public function render()
     {
         $clients = Client::all();
-        return view('livewire.client-table', [
-            'clients' => $clients,
-        ]);
+        return view('livewire.clients', ['clients' => $clients]);
     }
 }

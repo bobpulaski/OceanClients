@@ -1,10 +1,12 @@
 <div>
+    <h1>Список клиентов</h1>
+
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>INN</th>
+                <th>Имя</th>
+                <th>inn</th>
             </tr>
         </thead>
         <tbody>
