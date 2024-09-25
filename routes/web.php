@@ -15,11 +15,10 @@ Route::view('profile', 'profile')
 ->middleware(['auth'])
 ->name('profile');
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::resource('clients', ClientController::class);
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::get('clients', Clients::class)->name('clients');
+});
 
-Route::get('clients', Clients::class);
 
     // Route::view('clients', 'clients')
     // ->middleware(['auth'])
