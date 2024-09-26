@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Clients;
 
 
 
@@ -16,7 +15,8 @@ Route::view('profile', 'profile')
 ->name('profile');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('clients', Clients::class)->name('clients');
+    Route::get('/clients/index', App\Livewire\Clients\Index::class)->name('clients.index');
+    Route::get('/clients/create', App\Livewire\Clients\Create::class)->name('clients.create');
 });
 
 
