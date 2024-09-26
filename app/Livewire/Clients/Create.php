@@ -24,6 +24,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.clients.create');
+        return view('livewire.clients.create')->layout('layouts.app');;
     }
 }

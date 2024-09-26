@@ -1,36 +1,36 @@
-{{-- <x-slot name="header">
-    <h2 class="text-xl font-semibold leading-tight text-gray-800">
-        {{ __('Clients') }}
-    </h2>
-</x-slot> --}}
-{{-- <x-app-layout> --}}
+<div>
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h1>Список клиентов</h1>
+                <div class="p-8 text-gray-900">
+                    <div class="flex justify-between items-center mb-6">
 
-                    <a href="{{route('clients.create')}}" wire:navigate> Create new post </a>
+                        <x-typo.h1>{{ __('Clients') }}</x-typo.h1>
+                        <a class="text-gray-500 text-xs border font-bold py-1 px-2 rounded hover:bg-gray-100 hover:text-gray-700"
+                            href="{{ route('clients.create') }}" wire:navigate> {{ __('+ Add Client') }}</a>
+                    </div>
 
-                    <table class="table">
-                        <thead>
+                    <x-tables.table>
+                        <x-tables.thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Имя</th>
-                                <th>inn</th>
+                                <x-tables.th>ID</x-tables.th>
+                                <x-tables.th>Имя</x-tables.th>
+                                <x-tables.th>ИНН</x-tables.th>
                             </tr>
-                        </thead>
+                        </x-tables.thead>
                         <tbody>
                             @foreach ($clients as $client)
-                                <tr>
-                                    <td>{{ $client->id }}</td>
+                                <tr class="border-b border-neutral-200">
+                                    <td class="whitespace-nowrap px-6 py-4">{{ $client->id }}</td>
                                     <td>{{ $client->name }}</td>
                                     <td>{{ $client->inn }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </x-tables.table>
+                    {{ $clients->links() }}
                 </div>
             </div>
         </div>
-{{-- </x-app-layout> --}}
+    </div>
+</div>
