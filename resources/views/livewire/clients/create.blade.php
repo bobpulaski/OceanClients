@@ -5,7 +5,7 @@
 
                     <form wire:submit="store">
                         <div class="form-group">
-                            <label for="name">Title</label>
+                            <label for="name">Name</label>
                             <input type="text" wire:model="name" class="form-control" id="name"
                                 placeholder="Enter a name">
                             @error('name')
@@ -13,8 +13,9 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="inn">Post text</label>
-                            <input type="text" wire:model="inn" wire:model="inn" name="inn"></input>
+                            <label for="inn">Inn</label>
+                            <input type="text" wire:model="inn" wire:model="inn" class="form-control" id="inn"
+                                placeholder="Enter a inn">
                             @error('inn')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
