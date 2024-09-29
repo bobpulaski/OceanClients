@@ -10,15 +10,17 @@ class Index extends Component
 {
     use WithPagination;
 
-    public function render()
-    {
-        $clients = Client::paginate(10);
-        return view('livewire.clients.index', ['clients' => $clients])->layout('layouts.app');
-    }
-
     public function delete($id)
     {
+        // dd($id);
+
         Client::find($id)->delete();
         session()->flash('message', 'Client Deleted Successfully.');
+    }
+
+    public function render()
+    {
+        $clients = Client::paginate(4);
+        return view('livewire.clients.index', ['clients' => $clients])->layout('layouts.app');
     }
 }
