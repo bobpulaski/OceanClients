@@ -29,18 +29,9 @@
                                     <td>{{ $client->name }}</td>
                                     <td>{{ $client->inn }}</td>
                                     <td>
-                                        {{--                                         <button --}}
-                                        {{--                                            class="rounded border px-2 py-1 text-xs font-bold text-red-200 hover:bg-gray-100 hover:text-red-700" --}}
-                                        {{--                                            type="button" wire:click="deleteId({{ $client->id }})">Remove</button> --}}
-                                        {{--                                        <button wire:click="deleteId({{ $client->id }})" --}}
-                                        {{--                                            class="openModal rounded border px-2 py-1 text-xs font-bold text-red-200 hover:bg-gray-100 hover:text-red-700" --}}
-                                        {{--                                            type="button" data-client-id="{{ $client->id }}" --}}
-                                        {{--                                            data-client-name="{{ $client->name }}">Remove</button> --}}
-                                        <button class="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-600"
-                                            data-client-id="{{ $client->id }}"
-                                            wire:click="delete({{ $client->id }})"
-                                            wire:confirm="Are you sure you want to delete this client {{ $client->id }}?">Delete</button>
-                                        {{-- onclick="confirmDelete()" --}}
+                                        <button
+                                            class="openModal rounded bg-red-400 px-4 py-2 text-white hover:bg-red-600"
+                                            data-client-id="{{ $client->id }}">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -52,63 +43,55 @@
         </div>
     </div>
 
+    <div id="modal" class="fixed inset-0 flex hidden items-center justify-center bg-black bg-opacity-30">
+        <div class="mx-4 w-1/3 rounded-lg bg-white shadow-lg">
+            <div class="p-6">
+                <h2 class="text-lg font-semibold">Подтверждение</h2>
+                <p class="mt-2">Вы уверены, что хотите удалить клиента <span id="clientId"></span>?</p>
+            </div>
+            <div class="flex justify-end p-4">
+                <button id="cancelButton"
+                    class="mr-2 rounded bg-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-400">Отмена</button>
+                <button id="okButton" class="rounded bg-red-400 px-4 py-2 text-white hover:bg-red-600">Delete
+                    {{ $client->id }}</button>
+            </div>
+        </div>
+    </div>
 
-
-    {{-- @script
+    @script
         <script>
-            let clientIdToDelete = null; // Храним ID клиента для удаления
+            window.addEventListener('contentChanged', (e) => {
+                if (e.detail[0].item) {
+                    console.log(e.detail[0].item);
 
-            // Открыть модальное окно
-            document.querySelectorAll('.openModal').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    clientIdToDelete = this.getAttribute('data-client-id'); // Получаем ID клиента
-                    document.getElementById('clientId').textContent =
-                        clientIdToDelete; // Показываем ID в модальном окне
-                    document.getElementById('modal').classList.remove('hidden'); // Показываем модальное окно
+                    function openModalHandler(event) {
+                        const clientIdToDelete = this.getAttribute('data-client-id'); // Получаем ID клиента
+                        document.getElementById('clientId').textContent =
+                            clientIdToDelete; // Показываем ID в модальном окне
+                        document.getElementById('modal').classList.remove('hidden'); // Показываем модальное окно
+
+                    }
+                    // Удаление обработчика
+
+                    document.querySelectorAll('.openModal').forEach(function(button) {
+                        button.removeEventListener('click', openModalHandler);
+                        console.log('removeEventListener');
+                        button.addEventListener('click', openModalHandler);
+                        console.log('addEventListener');
+
+                    });
+
+
+                } else {
+                    console.log('null');
+                }
+
+                // Закрыть модальное окно(Отмена)
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    document.getElementById('modal').classList.add('hidden'); // Скрываем модальное окно
                 });
             });
-
-            // Закрыть модальное окно (Отмена)
-            document.getElementById('cancelButton').addEventListener('click', function() {
-                document.getElementById('modal').classList.add('hidden'); // Скрываем модальное окно
-            });
-
-            // Подтверждение удаления
-            document.getElementById('okButton').addEventListener('click', function() {
-                if (clientIdToDelete) {
-                    console.log(clientIdToDelete);
-                    // Вызов метода delete через Livewire
-                    @this.call('delete', clientIdToDelete); // Убедитесь, что метод delete принимает ID клиента
-                    document.getElementById('modal').classList.add('hidden'); // Скрываем модальное окно после удаления
-                }
-            });
         </script>
-    @endscript --}}
-
-    {{-- <script>
-        // Открыть модальное окно
-        document.querySelectorAll('.openModal').forEach(function(button) {
-            button.addEventListener('click', function() {
-                document.getElementById('modal').classList.remove('hidden'); // Показываем модальное окно
-            });
-        });
-
-        // Закрыть модальное окно (Отмена)
-        document.getElementById('cancelButton').addEventListener('click', function() {
-            document.getElementById('modal').classList.add('hidden'); // Скрываем модальное окно
-        });
-    </script> --}}
-
-    {{--    <script> --}}
-    {{--        // Открыть модальное окно --}}
-    {{--        $('.openModal').on('click', function() { --}}
-    {{--            $('#modal').removeClass('hidden'); // Показываем модальное окно --}}
-    {{--        }); --}}
-    {{--        --}}
-    {{--        // Закрыть модальное окно (Отмена) --}}
-    {{--        $('#cancelButton').on('click', function() { --}}
-    {{--            $('#modal').addClass('hidden'); // Скрываем модальное окно --}}
-    {{--        }); --}}
-    {{--    </script> --}}
+    @endscript
 
 </div>
