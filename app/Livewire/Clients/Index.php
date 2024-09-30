@@ -13,22 +13,18 @@ class Index extends Component
 
     public function delete($id)
     {
-        // dd($id);
-
         Client::find($id)->delete();
         session()->flash('message', 'Client Deleted Successfully.');
     }
 
     public function openModal($clientId)
     {
-        $this->dispatch('showModal', $clientId);
-        // dd($clientId);
+        $this->dispatch('changeText', $clientId);
     }
 
     public function render()
     {
         $clients = Client::paginate(4);
-        $this->dispatch('contentChanged', ['item' => 'updated']);
         return view('livewire.clients.index', ['clients' => $clients, 'isRendered' => 'true'])->layout('layouts.app');
     }
 }
