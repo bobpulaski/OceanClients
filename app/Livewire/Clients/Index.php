@@ -19,7 +19,11 @@ class Index extends Component
         session()->flash('message', 'Client Deleted Successfully.');
     }
 
-
+    public function openModal($clientId)
+    {
+        $this->dispatch('showModal', $clientId);
+        // dd($clientId);
+    }
 
     public function render()
     {

@@ -29,7 +29,7 @@
                                     <td>{{ $client->name }}</td>
                                     <td>{{ $client->inn }}</td>
                                     <td>
-                                        <button
+                                        <button wire:click="openModal({{ $client->id }})"
                                             class="openModal rounded bg-red-400 px-4 py-2 text-white hover:bg-red-600"
                                             data-client-id="{{ $client->id }}">Delete</button>
                                     </td>
@@ -58,40 +58,26 @@
         </div>
     </div>
 
-    @script
-        <script>
-            window.addEventListener('contentChanged', (e) => {
-                if (e.detail[0].item) {
-                    console.log(e.detail[0].item);
 
-                    function openModalHandler(event) {
-                        const clientIdToDelete = this.getAttribute('data-client-id'); // Получаем ID клиента
-                        document.getElementById('clientId').textContent =
-                            clientIdToDelete; // Показываем ID в модальном окне
-                        document.getElementById('modal').classList.remove('hidden'); // Показываем модальное окно
-
-                    }
-                    // Удаление обработчика
-
-                    document.querySelectorAll('.openModal').forEach(function(button) {
-                        button.removeEventListener('click', openModalHandler);
-                        console.log('removeEventListener');
-                        button.addEventListener('click', openModalHandler);
-                        console.log('addEventListener');
-
-                    });
-
-
-                } else {
-                    console.log('null');
-                }
-
-                // Закрыть модальное окно(Отмена)
-                document.getElementById('cancelButton').addEventListener('click', function() {
-                    document.getElementById('modal').classList.add('hidden'); // Скрываем модальное окно
-                });
-            });
-        </script>
-    @endscript
 
 </div>
+
+@script
+    <script>
+        // document.addEventListener('livewire:init', function() {
+        //     Livewire.on('showModal', function(clientId) {
+        //         console.log(clientId);
+        //     });
+        // });
+
+        $wire.on('showModal', (event) => {
+            // console.log(event);
+            document.querySelectorAll('.openModal').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    document.getElementById('modal').classList.remove(
+                        'hidden'); // Показываем модальное окно
+                });
+            });
+        });
+    </script>
+@endscript
