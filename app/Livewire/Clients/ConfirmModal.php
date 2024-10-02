@@ -13,7 +13,6 @@ class ConfirmModal extends Component
 
         // Вызываем событие для обновления родительского компонента
         $this->dispatch('recordDeleted');
-
     }
     public function render()
     {

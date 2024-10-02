@@ -35,7 +35,8 @@ class Index extends Component
 
     public function render()
     {
-        $clients = Client::paginate(4);
+        // $clients = Client::orderBy('created_at', 'desc')->paginate(4);
+        $clients = Client::orderBy('created_at', 'desc')->get();
         return view('livewire.clients.index', ['clients' => $clients, 'isRendered' => 'true'])->layout('layouts.app');
     }
 }

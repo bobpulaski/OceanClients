@@ -13,13 +13,12 @@ class Create extends Component
         'name' => 'required',
         'inn' => 'required',
     ];
-    public function store()
+    public function save()
     {
         Client::create($this->validate());
-
         session()->flash('message', 'Clients successfully created.');
-
         return redirect()->route('clients.index');
+
     }
 
     public function render()

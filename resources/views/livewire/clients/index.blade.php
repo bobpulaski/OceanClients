@@ -1,8 +1,11 @@
+<div>
+
     <div class="py-12">
+        @if (session()->has('message'))
+            <livewire:clients.alert />
+        @endif
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            @if (session()->has('message'))
-                <x-ui.alert />
-            @endif
+
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-8 text-gray-900">
                     <div class="mb-6 flex items-center justify-between">
@@ -29,30 +32,31 @@
                                     <td>{{ $client->inn }}</td>
                                     <td>
                                         <button wire:click="openModal({{ $client->id }})"
-                                            class="open-modal rounded bg-red-400 px-4 py-2 text-white hover:bg-red-600"
-                                            data-client-id="{{ $client->id }}">Delete
+                                            class="open-modal rounded bg-red-400 px-3 py-1 text-white hover:bg-red-600"
+                                            data-client-id="{{ $client->id }}">x
                                         </button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </x-tables.table>
-                    {{ $clients->links() }}
+                    {{-- {{ $clients->links() }} --}}
                 </div>
             </div>
         </div>
         <livewire:clients.confirm-modal />
     </div>
 
-    @script
-        <script>
-            $wire.$on('openModal', (event) => {
-                document.getElementById('confirm-modal').classList.remove('hidden');
-                document.getElementById('okButton').innerText = event;
+</div>
 
-                // Добавляем атрибут wire:click
-                const okButton = document.getElementById('okButton');
-                okButton.setAttribute('wire:click', `delete(${event})`);
-            });
-        </script>
-    @endscript
+@script
+    <script>
+        $wire.$on('openModal', (event) => {
+            document.getElementById('confirm-modal').classList.remove('hidden');
+
+            // Добавляем атрибут wire:click
+            const okButton = document.getElementById('okButton');
+            okButton.setAttribute('wire:click', `delete(${event})`);
+        });
+    </script>
+@endscript
