@@ -17,8 +17,8 @@ Route::view('simple', 'simple')
 ->name('simple');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/clients/index', App\Livewire\Clients\Index::class)->name('clients.index');
-    Route::get('/clients/create', App\Livewire\Clients\Create::class)->name('clients.create');
+    Route::get('clients/index', App\Livewire\Clients\Index::class)->name('clients.index');
+    Route::get('clients/create', App\Livewire\Clients\Create::class)->name('clients.create');
 });
 
 

@@ -1,12 +1,13 @@
 <div>
 
     <div class="py-12">
-        @if (session()->has('message'))
+{{--        @if (session()->has('message'))
             <livewire:clients.alert />
-        @endif
+        @endif--}}
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                
                 <div class="p-8 text-gray-900">
                     <div class="mb-6 flex items-center justify-between">
 
@@ -40,7 +41,9 @@
                             @endforeach
                         </tbody>
                     </x-tables.table>
-                    {{-- {{ $clients->links() }} --}}
+                    <div class="pt-4">
+                     {{ $clients->links() }}
+                    </div>
                 </div>
             </div>
         </div>

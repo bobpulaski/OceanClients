@@ -16,8 +16,8 @@ class Create extends Component
     public function save()
     {
         Client::create($this->validate());
-        session()->flash('message', 'Clients successfully created.');
-        return redirect()->route('clients.index');
+        $this->dispatch ('alert');
+        $this->redirect('/clients/index', navigate: true);
 
     }
 
